@@ -57,7 +57,9 @@ class MultipleTranslator():
     def __str__(self, dest_lang_list):
         print("Original sentence: ", self.sentence, "\n")
         for t in self.multiple_translations(dest_lang_list):
-            print(t.dest, "\nText:", t.text, "\nPronunciation: ", t.pronunciation, "\n")
+            print(t.dest)
+            input()
+            print("\nText:", t.text, "\nPronunciation: ", t.pronunciation, "\n")
 
 
 def main():
