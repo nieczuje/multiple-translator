@@ -1,5 +1,5 @@
 
-
+from msilib.schema import Error
 import pandas as pd
 import random
 from googletrans import Translator
@@ -17,28 +17,26 @@ class Languages():
              "sw", "ta", "te", "tg", "th", "ti", "tk", "tl", "tn", "to", "tr", "tt", "tum", "tw", "ug", "uk", "ur",
              "uz", "vi", "wo", "xh", "xx-bork", "xx-elmer", "xx-hacker", "xx-klingon", "xx-pirate", "yi", "yo", "zh-CN",
              "zh-TW", "zu"]
-        self.langs = ["es"]
 
     def __str__(self):
         for lang in self.lang_list:
-            print(lang, self.lang_list.index(lang) + 1, end="   ")
+            print(lang, end="   ")
         print("\n")
-    
+
     def choose(self):
         while True:
             try:
-                numbers = input("Choose numbers separated by \",\":\n")
-                numbers = numbers.split(",")
-                self.langs = [self.lang_list[int(number) - 1] for number in numbers]
+                codes = input("Choose codes separated by \",\":\n")
+                codes = codes.split(",")
+                codes = [code.strip() for code in codes]
+                result =  all(elem in self.lang_list for elem in codes)
+                if not result:
+                    raise ValueError
+                self.langs = codes
             except ValueError:
                 print("Try again\n")
             else:
                 break
-
-        print("\n")
-        for lang in self.langs:
-            print(lang)
-        print("\n")
 
         return self.langs
 
