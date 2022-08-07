@@ -21,24 +21,43 @@ class Languages():
     def __str__(self):
         for lang in self.lang_list:
             print(lang, end="   ")
-        print("\n")
 
     def choose(self):
         while True:
-            try:
-                codes = input("Choose codes separated by \",\":\n")
-                codes = codes.split(",")
-                codes = [code.strip() for code in codes]
-                result =  all(elem in self.lang_list for elem in codes)
-                if not result:
-                    raise ValueError
+            codes = input("Choose codes separated by \",\":\n")
+            codes = codes.split(",")
+            codes = [code.strip() for code in codes]
+            result =  all(elem in self.lang_list for elem in codes)
+            if result:
                 self.langs = codes
-            except ValueError:
-                print("Try again\n")
-            else:
                 break
+            else:
+                print("Try again\n")
 
         return self.langs
+
+
+class Sentence():
+    def __init__(self):
+        self.df = pd.read_csv("GenericsKB-Best.tsv", sep='\t')
+    
+    def choose_source(self):
+        while True:
+            self.source = input("Choose difficulty: 0 - random, 1 - easy, 2 - hard:\n")
+            if self.source == "0":
+                break
+            elif self.source == "1":
+                break
+            elif self.source == "2":
+                break
+            else:
+                print("Try again\n")
+
+    def draw(self):
+        if self.source == "2":
+            sentence = random.choice(self.df['GENERIC SENTENCE'])
+
+        return sentence
 
 
 class MultipleTranslator():
@@ -62,13 +81,15 @@ class MultipleTranslator():
 
 def main():
     Languages().__str__()
+    print("\n")
     langs = Languages().choose()
+    print("\n")
+    sentence = Sentence()
+    sentence.choose_source()
+    print("\n")
     
     while True:
-        df = pd.read_csv("GenericsKB-Best.tsv", sep='\t')
-        sentence = random.choice(df['GENERIC SENTENCE'])
-
-        MultipleTranslator(sentence).__str__(langs)
+        MultipleTranslator(sentence.draw()).__str__(langs)
 
         print("---")
         input()
