@@ -2,6 +2,7 @@
 from msilib.schema import Error
 import pandas as pd
 import random
+import re
 from googletrans import Translator
 
 
@@ -55,11 +56,32 @@ class Sentence():
         sentence_easy = random.choice(self.lines)
         sentence_hard = random.choice(self.df['GENERIC SENTENCE'])
         if self.source == "0":
-            return random.choice([sentence_easy, sentence_hard])
+            sentence = random.choice([sentence_easy, sentence_hard])
         elif self.source == "1":
-            return sentence_easy
+            sentence = sentence_easy
         elif self.source == "2":
-            return sentence_hard
+            sentence = sentence_hard
+        
+        # sentence = "100 Adverb Sentences"
+        sentence = self.clean(sentence)
+
+        return sentence
+
+    def clean(self, sentence):
+        # comment line or empty line
+        if len(sentence) < 2 or sentence[0] == "#":
+            self.draw()
+        # starts with number and dot
+        match1 = re.findall(r"(^[0-9]+[.])", sentence)
+        if match1:
+            sentence = sentence[len(match1[0]):]
+        # start with word and colon
+        match2 = re.findall(r"([a-zA-Z]+[:]\s)", sentence)
+        if match2:
+            sentence = sentence[len(match2[0]):]
+
+        return sentence
+
 
 
 class MultipleTranslator():
@@ -78,7 +100,7 @@ class MultipleTranslator():
         for t in self.multiple_translations(dest_lang_list):
             print(t.dest)
             input()
-            print("\nText:", t.text, "\nPronunciation: ", t.pronunciation, "\n")
+            print("\nText: ", t.text, "\nPronunciation: ", t.pronunciation, "\n")
 
 
 def main():
