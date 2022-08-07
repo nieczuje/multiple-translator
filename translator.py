@@ -39,25 +39,27 @@ class Languages():
 
 class Sentence():
     def __init__(self):
+        with open('sentences_base.txt') as f:
+            self.lines = f.readlines()
         self.df = pd.read_csv("GenericsKB-Best.tsv", sep='\t')
     
     def choose_source(self):
         while True:
             self.source = input("Choose difficulty: 0 - random, 1 - easy, 2 - hard:\n")
-            if self.source == "0":
-                break
-            elif self.source == "1":
-                break
-            elif self.source == "2":
+            if self.source == "0" or self.source == "1" or self.source == "2":
                 break
             else:
                 print("Try again\n")
 
     def draw(self):
-        if self.source == "2":
-            sentence = random.choice(self.df['GENERIC SENTENCE'])
-
-        return sentence
+        sentence_easy = random.choice(self.lines)
+        sentence_hard = random.choice(self.df['GENERIC SENTENCE'])
+        if self.source == "0":
+            return random.choice([sentence_easy, sentence_hard])
+        elif self.source == "1":
+            return sentence_easy
+        elif self.source == "2":
+            return sentence_hard
 
 
 class MultipleTranslator():
