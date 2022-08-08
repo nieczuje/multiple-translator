@@ -4,6 +4,7 @@ import pandas as pd
 import random
 import re
 from googletrans import Translator
+from flask import Flask, redirect, url_for, render_template, request
 
 
 class Languages():
@@ -126,7 +127,34 @@ def main():
             sentence.choose_source()
 
 
-main()
+# main()
+
+form = '<form method="post"> \
+        <input type="checkbox" name="hello" value="world" checked> \
+        <input type="checkbox" name="hello" value="davidism" checked> \
+        <div class="form-check"> \
+        <input \
+          class="form-check-input" \
+          type="checkbox" \
+          value="" \
+          id="flexCheckDefault" \
+        /> \
+        <label class="form-check-label" for="flexCheckDefault"> de </label> \
+      </div> \
+        <input type="submit"> \
+        </form>'
+
+app = Flask(__name__)
+
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        print(request.form.getlist('hello'))
+    return render_template("index.html", content=form)
+
+if __name__ == "__main__":
+    app.run(debug=False)
 
 
 # licnecja https://huggingface.co/datasets/generics_kb?fbclid=IwAR07Hh1JT16IbRJJjg13wvFYVNWMltU462-bvqp-atzxLRLE-3PNy845q8Q
