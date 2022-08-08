@@ -46,12 +46,14 @@ class Sentence():
     
     def choose_source(self):
         while True:
-            self.source = input("Choose difficulty: 0 - random, 1 - easy, 2 - hard:\n")
+            self.source = input("Write your sentence or choose difficulty:\n0 - random, 1 - easy, 2 - hard\n")
             if self.source == "0" or self.source == "1" or self.source == "2":
+                break
+            elif len(self.source) > 2:
                 break
             else:
                 print("Try again\n")
-
+    
     def draw(self):
         sentence_easy = random.choice(self.lines)
         sentence_hard = random.choice(self.df['GENERIC SENTENCE'])
@@ -61,8 +63,9 @@ class Sentence():
             sentence = sentence_easy
         elif self.source == "2":
             sentence = sentence_hard
+        else:
+            sentence = self.source
         
-        # sentence = "100 Adverb Sentences"
         sentence = self.clean(sentence)
 
         return sentence
@@ -81,7 +84,6 @@ class Sentence():
             sentence = sentence[len(match2[0]):]
 
         return sentence
-
 
 
 class MultipleTranslator():
@@ -116,7 +118,12 @@ def main():
         MultipleTranslator(sentence.draw()).__str__(langs)
 
         print("---")
-        input()
+        if len(sentence.source) == 1:
+            sentence_user = input()
+            if len(sentence_user) > 2:
+                sentence.source = sentence_user
+        else:
+            sentence.choose_source()
 
 
 main()
