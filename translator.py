@@ -106,6 +106,26 @@ class MultipleTranslator():
             print("\nText: ", t.text, "\nPronunciation: ", t.pronunciation, "\n")
 
 
+class Display():
+    def __init__(self):
+        # self.item = item
+        self.hmtl = ""
+    
+    def checkbox(self, lang):
+        return '<li><div class="form-check"><input class="form-check-input" type="checkbox" name="languages" value="' + lang + '" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">' + lang + '</label></div></li>'
+    
+    def form(self, langs):
+        form = '<form method="post"><ul>'
+        for lang in langs:
+            form += self.checkbox(lang)
+        form += '</ul><input type="submit"></form>'
+        return form
+
+
+# print(Display().checkbox("de"))
+# print(Display().form(Languages().lang_list))
+
+
 def main():
     Languages().__str__()
     print("\n")
@@ -129,20 +149,22 @@ def main():
 
 # main()
 
-form = '<form method="post"> \
-        <input type="checkbox" name="hello" value="world" checked> \
-        <input type="checkbox" name="hello" value="davidism" checked> \
-        <div class="form-check"> \
-        <input \
-          class="form-check-input" \
-          type="checkbox" \
-          value="" \
-          id="flexCheckDefault" \
-        /> \
-        <label class="form-check-label" for="flexCheckDefault"> de </label> \
-      </div> \
-        <input type="submit"> \
-        </form>'
+# form = '<form method="post"> \
+#         <input type="checkbox" name="hello" value="world" checked> \
+#         <input type="checkbox" name="hello" value="davidism" checked> \
+#         <div class="form-check"> \
+#         <input \
+#           class="form-check-input" \
+#           type="checkbox" \
+#           value="" \
+#           id="flexCheckDefault" \
+#         /> \
+#         <label class="form-check-label" for="flexCheckDefault"> de </label> \
+#       </div> \
+#         <input type="submit"> \
+#         </form>'
+
+form = Display().form(Languages().lang_list)
 
 app = Flask(__name__)
 
@@ -150,7 +172,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        print(request.form.getlist('hello'))
+        print(request.form.getlist('languages'))
     return render_template("index.html", content=form)
 
 if __name__ == "__main__":
