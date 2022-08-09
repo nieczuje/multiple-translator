@@ -37,7 +37,7 @@
   </head>
   <body>
     <div class="container">
-      <div class="form-check">
+      <!-- <div class="form-check">
         <input
           class="form-check-input"
           type="checkbox"
@@ -55,12 +55,36 @@
           checked
         />
         <label class="form-check-label" for="flexCheckChecked"> es </label>
-      </div>
+      </div> -->
     </div>
     <div class="container-fluid">{% block tableIP %} {% endblock %}</div>
     <div class="container-fluid">{% block tableOOP %} {% endblock %}</div>
     <div class="container-fluid">{% block spinner %} {% endblock %}</div>
-    <div class="container">{{content | safe}}</div>
+    <div class="container">
+      <!-- <div class="modal-dialog modal-xl">aaaa</div> -->
+      <!-- Button trigger modal -->
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        Launch demo modal
+      </button>
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">{{content | safe}}</div>
+        </div>
+      </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
