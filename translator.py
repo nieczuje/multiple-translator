@@ -112,14 +112,20 @@ class Display():
         self.hmtl = ""
     
     def checkbox(self, lang):
-        return '<li><div class="form-check"><input class="form-check-input" type="checkbox" name="languages" value="' + lang + '" id="flexCheckDefault" /><label class="form-check-label" for="flexCheckDefault">' + lang + '</label></div></li>'
+        return '<li><div class="form-check"><input class="form-check-input" type="checkbox" name="languages" value="' + lang + '" id="flexCheckDefault_' + lang + '" /><label class="form-check-label" for="flexCheckDefault_' + lang + '">' + lang + '</label></div></li>'
     
     def form(self, langs):
         form = '<form method="post"><ul>'
         for lang in langs:
             form += self.checkbox(lang)
-        form += '</ul><input type="submit"></form>'
+        form += '</ul><div class="modal-footer"><input class="btn btn-primary" type="submit" value="Submit"></div></form>'
         return form
+    
+    def translations(self, sentences):
+        translations = ""
+        for s in sentences:
+            translations += s.text
+        return translations
 
 
 # print(Display().checkbox("de"))
@@ -166,14 +172,35 @@ def main():
 
 form = Display().form(Languages().lang_list)
 
+
 app = Flask(__name__)
 
+languages = []
+inlineRadioOptions = 2
+sentence = Sentence()
+english_sentence = ""
+translations = ""
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    global languages
+    global inlineRadioOptions
+    global sentence
+    global translations
+    global english_sentence
     if request.method == 'POST':
-        print(request.form.getlist('languages'))
-    return render_template("index.html", content=form)
+        if len(request.form.getlist('languages')) > 0:
+            languages = request.form.getlist('languages')
+        if len(request.form.getlist('inlineRadioOptions')) > 0:
+            inlineRadioOptions = request.form.getlist('inlineRadioOptions')
+            sentence.source = inlineRadioOptions[0]
+            print(sentence.source)
+            # sen = MultipleTranslator("The cat is white").multiple_translations(languages)
+            english_sentence = sentence.draw()
+            sen = MultipleTranslator(english_sentence).multiple_translations(languages)
+            translations = Display().translations(sen)
+    print(languages, inlineRadioOptions)
+    return render_template("index.html", content_form=form, content_sentence=english_sentence, content_translations=translations)
 
 if __name__ == "__main__":
     app.run(debug=False)

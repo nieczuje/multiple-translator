@@ -81,9 +81,69 @@
         aria-hidden="true"
       >
         <div class="modal-dialog modal-xl">
-          <div class="modal-content">{{content | safe}}</div>
+          <div class="modal-content">{{content_form | safe}}</div>
         </div>
       </div>
+
+      <form method="post">
+        <div class="container">
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="inlineRadioOptions"
+              id="inlineRadio1"
+              value="0"
+            />
+            <label class="form-check-label" for="inlineRadio1">random</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="inlineRadioOptions"
+              id="inlineRadio2"
+              value="1"
+              checked
+            />
+            <label class="form-check-label" for="inlineRadio2">easy</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="inlineRadioOptions"
+              id="inlineRadio3"
+              value="2"
+            />
+            <label class="form-check-label" for="inlineRadio3">hard</label>
+          </div>
+        </div>
+
+        <!-- TEXT -->
+        <div class="container">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Write your sentence or click Generate"
+              aria-label="Recipient's username"
+              aria-describedby="button-addon2"
+              value="{{content_sentence | safe}}"
+            />
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              id="button-addon2"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Generate</button>
+      </form>
+
+      <div class="container">{{content_translations | safe}}</div>
     </div>
 
     <!-- Optional JavaScript -->
