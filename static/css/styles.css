@@ -11,3 +11,8 @@ ul.short {
   column-count: 7;
   /* column-gap: 0.5rem; */
 }
+
+.test2 {
+  display: flex;
+  align-items: center;
+}
