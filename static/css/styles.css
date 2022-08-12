@@ -1,5 +1,13 @@
 ul {
-  column-count: 8;
-  column-gap: 2rem;
   list-style: none;
+}
+
+ul.diff {
+  column-count: 9;
+  /* column-gap: 0.1rem; */
+}
+
+ul.short {
+  column-count: 7;
+  /* column-gap: 0.5rem; */
 }

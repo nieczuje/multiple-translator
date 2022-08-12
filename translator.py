@@ -19,6 +19,10 @@ class Languages():
              "sw", "ta", "te", "tg", "th", "ti", "tk", "tl", "tn", "to", "tr", "tt", "tum", "tw", "ug", "uk", "ur",
              "uz", "vi", "wo", "xh", "xx-bork", "xx-elmer", "xx-hacker", "xx-klingon", "xx-pirate", "yi", "yo", "zh-CN",
              "zh-TW", "zu"]
+        self.lang_list_short = ["ar", "de", "es", "fr", "it", "iw", "ja", "ko", "pl", "pt-PT", "ru", "tr", "uk", "zh-CN"]
+
+    def lang_diff(self):
+        return [lang for lang in self.lang_list if not (lang in self.lang_list_short or lang == "en")]
 
     def __str__(self):
         for lang in self.lang_list:
@@ -114,6 +118,13 @@ class Display():
     def checkbox(self, lang):
         return '<li><div class="form-check"><input class="form-check-input" type="checkbox" name="languages" value="' + lang + '" id="flexCheckDefault_' + lang + '" /><label class="form-check-label" for="flexCheckDefault_' + lang + '">' + lang + '</label></div></li>'
     
+    def checkboxes(self, langs, html_class):
+        checkboxes = '<ul class="' + html_class + '">'
+        for lang in langs:
+            checkboxes += self.checkbox(lang)
+        checkboxes += '</ul>'
+        return checkboxes
+    
     def form(self, langs):
         form = '<form method="post"><ul>'
         for lang in langs:
@@ -171,6 +182,8 @@ def main():
 #         </form>'
 
 form = Display().form(Languages().lang_list)
+checkboxes = Display().checkboxes(Languages().lang_diff(), "diff")
+checkboxes_short = Display().checkboxes(Languages().lang_list_short, "short")
 
 
 app = Flask(__name__)
@@ -200,7 +213,7 @@ def index():
             sen = MultipleTranslator(english_sentence).multiple_translations(languages)
             translations = Display().translations(sen)
     print(languages, inlineRadioOptions)
-    return render_template("index.html", content_form=form, content_sentence=english_sentence, content_translations=translations)
+    return render_template("index.html", content_form=form, content_sentence=english_sentence, content_translations=translations, content_checkboxes=checkboxes, content_checkboxes_short=checkboxes_short)
 
 if __name__ == "__main__":
     app.run(debug=False)
