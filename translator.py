@@ -1,4 +1,5 @@
 
+from gettext import translation
 from msilib.schema import Error
 import pandas as pd
 import random
@@ -48,6 +49,7 @@ class Sentence():
         with open('sentences_base.txt') as f:
             self.lines = f.readlines()
         self.df = pd.read_csv("GenericsKB-Best.tsv", sep='\t')
+        self.level = ""
     
     def choose_source(self):
         while True:
@@ -62,14 +64,16 @@ class Sentence():
     def draw(self):
         sentence_easy = random.choice(self.lines)
         sentence_hard = random.choice(self.df['GENERIC SENTENCE'])
+        
         if self.source == "0":
-            sentence = random.choice([sentence_easy, sentence_hard])
-        elif self.source == "1":
+            self.source = random.choice(["1", "2"])
+
+        if self.source == "1":
             sentence = sentence_easy
+            self.level = "Easy"
         elif self.source == "2":
             sentence = sentence_hard
-        else:
-            sentence = self.source
+            self.level = "Hard"
         
         sentence = self.clean(sentence)
 
@@ -137,10 +141,51 @@ class Display():
         for s in sentences:
             translations += s.text
         return translations
+    
+    def num_to_text(self, num):
+        if num > 9:
+            num == 9
+        return ['zero','one','two','three','four','five','six','seven','eight','nine'][num].capitalize()
+    
+    def accordion_item(self, lang, translation, num):
+        return '''<div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-heading''' + self.num_to_text(num) + '''">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapse''' + self.num_to_text(num) + '''"
+                aria-expanded="false"
+                aria-controls="panelsStayOpen-collapse''' + self.num_to_text(num) + '''"
+              >
+                ''' + lang + '''
+              </button>
+            </h2>
+            <div
+              id="panelsStayOpen-collapse''' + self.num_to_text(num) + '''"
+              class="accordion-collapse collapse"
+              aria-labelledby="panelsStayOpen-heading''' + self.num_to_text(num) + '''"
+            >
+              <div class="accordion-body">
+                ''' + translation + '''
+              </div>
+            </div>
+          </div>'''
+        
+    def accordion(self, langs, translations):
+        accordion = '<div class="accordion" id="accordionPanelsStayOpenExample">'
+        for count, lang in enumerate(langs):
+            accordion += self.accordion_item(lang, translations[count], count + 1)
+        accordion += '</div>'
+        return accordion
 
 
 # print(Display().checkbox("de"))
 # print(Display().form(Languages().lang_list))
+# print(Display().accordion_item("de", "Berlin"))
+# print(Display().accordion(["de", "it"], ["deeee", "itttt"]))
+# print(Display().num_to_text(1))
+# input()
 
 
 def main():
@@ -193,6 +238,12 @@ inlineRadioOptions = 2
 sentence = Sentence()
 english_sentence = ""
 translations = ""
+btnradio = "1"
+checked_easy = ""
+checked_hard = ""
+checked_random = ""
+accordion = ""
+small = ""
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -201,19 +252,45 @@ def index():
     global sentence
     global translations
     global english_sentence
+    global btnradio
+    global checked_easy
+    global checked_hard
+    global checked_random
+    global accordion
+    global small
     if request.method == 'POST':
         if len(request.form.getlist('languages')) > 0:
             languages = request.form.getlist('languages')
-        if len(request.form.getlist('inlineRadioOptions')) > 0:
-            inlineRadioOptions = request.form.getlist('inlineRadioOptions')
-            sentence.source = inlineRadioOptions[0]
+        if len(request.form.getlist('btnradio')) > 0:
+            btnradio = request.form.getlist('btnradio')
+            btnradio = btnradio[0]
+            sentence.source = btnradio
             print(sentence.source)
             # sen = MultipleTranslator("The cat is white").multiple_translations(languages)
             english_sentence = sentence.draw()
             sen = MultipleTranslator(english_sentence).multiple_translations(languages)
-            translations = Display().translations(sen)
-    print(languages, inlineRadioOptions)
-    return render_template("index.html", content_form=form, content_sentence=english_sentence, content_translations=translations, content_checkboxes=checkboxes, content_checkboxes_short=checkboxes_short)
+            # translations = Display().translations(sen)
+            translations = [translation.text for translation in sen]
+            accordion = Display().accordion(languages, translations)
+            small = sentence.level
+            print(small)
+
+            # radio checked
+            if btnradio == "1":
+                checked_easy = "checked"
+                checked_hard = ""
+                checked_random = ""
+            elif btnradio == "2":
+                checked_easy = ""
+                checked_hard = "checked"
+                checked_random = ""
+            else:
+                checked_easy = ""
+                checked_hard = ""
+                checked_random = "checked"
+
+    print(languages, btnradio)
+    return render_template("index.html", content_form=form, content_sentence=english_sentence, content_translations=translations, content_checkboxes=checkboxes, content_checkboxes_short=checkboxes_short, content_checked_easy=checked_easy, content_checked_hard=checked_hard, content_checked_random=checked_random, content_accordion=accordion, content_small=small)
 
 if __name__ == "__main__":
     app.run(debug=False)
