@@ -182,9 +182,9 @@
       <div class="collapse" id="collapseExample">
         <div class="card card-body">{{content_checkboxes | safe}}</div>
       </div>
-    </div>
+      <!-- </div>
 
-    <div class="container">
+    <div class="container"> -->
       <div class="row mt-4">
         <div class="col-4">
           <div class="h-100 test2">
@@ -237,9 +237,9 @@
           />
         </div>
       </div>
-    </div>
+      <!-- </div>
 
-    <div class="container">
+    <div class="container"> -->
       <div class="row mt-5">
         <div class="input-group input-group-lg">
           <input
@@ -248,6 +248,13 @@
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-lg"
           />
+          <button
+            type="button"
+            class="btn bg-transparent"
+            style="margin-left: -47px; z-index: 100"
+          >
+            X
+          </button>
           <button class="btn btn-outline-secondary" type="button">Clear</button>
           <button class="btn btn-outline-secondary" type="button">Enter</button>
         </div>
@@ -265,7 +272,7 @@
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#panelsStayOpen-collapseOne"
-                aria-expanded="true"
+                aria-expanded="false"
                 aria-controls="panelsStayOpen-collapseOne"
               >
                 de
