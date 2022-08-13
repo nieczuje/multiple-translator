@@ -37,135 +37,25 @@
   </head>
   <body>
     <div class="container">
-      <!-- <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-        />
-        <label class="form-check-label" for="flexCheckDefault"> de </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckChecked"
-          checked
-        />
-        <label class="form-check-label" for="flexCheckChecked"> es </label>
-      </div> -->
-    </div>
-    <div class="container-fluid">{% block tableIP %} {% endblock %}</div>
-    <div class="container-fluid">{% block tableOOP %} {% endblock %}</div>
-    <div class="container-fluid">{% block spinner %} {% endblock %}</div>
-    <div class="container">
-      <!-- <div class="modal-dialog modal-xl">aaaa</div> -->
-      <!-- Button trigger modal -->
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-      >
-        Launch demo modal
-      </button>
-
-      <!-- Modal -->
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">{{content_form | safe}}</div>
-        </div>
-      </div>
-
       <form method="post">
-        <div class="container">
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="inlineRadioOptions"
-              id="inlineRadio1"
-              value="0"
-            />
-            <label class="form-check-label" for="inlineRadio1">random</label>
+        <div class="row mt-4">
+          <div class="col-10">
+            <!-- SHORT -->
+            {{content_checkboxes_short | safe}}
           </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="inlineRadioOptions"
-              id="inlineRadio2"
-              value="1"
-              checked
-            />
-            <label class="form-check-label" for="inlineRadio2">easy</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="inlineRadioOptions"
-              id="inlineRadio3"
-              value="2"
-            />
-            <label class="form-check-label" for="inlineRadio3">hard</label>
-          </div>
-        </div>
-
-        <!-- TEXT -->
-        <div class="container">
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Write your sentence or click Generate"
-              aria-label="Recipient's username"
-              aria-describedby="button-addon2"
-              value="{{content_sentence | safe}}"
-            />
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-              id="button-addon2"
+          <div class="col-2">
+            <!-- BUTTON -->
+            <a
+              class="btn btn-outline-secondary w-100"
+              data-bs-toggle="collapse"
+              href="#collapseExample"
+              role="button"
+              aria-expanded="false"
+              aria-controls="collapseExample"
             >
-              Clear
-            </button>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Generate</button>
-      </form>
-
-      <div class="container">{{content_translations | safe}}</div>
-    </div>
-
-    <hr />
-    <div class="container">
-      <div class="row mt-4">
-        <div class="col-10">
-          <!-- SHORT -->
-          {{content_checkboxes_short | safe}}
-        </div>
-        <div class="col-2">
-          <!-- BUTTON -->
-          <a
-            class="btn btn-outline-secondary w-100"
-            data-bs-toggle="collapse"
-            href="#collapseExample"
-            role="button"
-            aria-expanded="false"
-            aria-controls="collapseExample"
-          >
-            More
-          </a>
-          <!-- <button
+              More
+            </a>
+            <!-- <button
             class="btn btn-primary"
             type="button"
             data-bs-toggle="collapse"
@@ -175,165 +65,115 @@
           >
             Button with data-bs-target
           </button> -->
-        </div>
-      </div>
-
-      <!-- LONG -->
-      <div class="collapse" id="collapseExample">
-        <div class="card card-body">{{content_checkboxes | safe}}</div>
-      </div>
-      <!-- </div>
-
-    <div class="container"> -->
-      <div class="row mt-4">
-        <div class="col-4">
-          <div class="h-100 test2">
-            <div
-              class="btn-group w-100"
-              role="group"
-              aria-label="Basic radio toggle button group"
-            >
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="btnradio1"
-                autocomplete="off"
-                checked
-              />
-              <label class="btn btn-outline-secondary" for="btnradio1"
-                >Easy</label
-              >
-
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="btnradio2"
-                autocomplete="off"
-              />
-              <label class="btn btn-outline-secondary" for="btnradio2"
-                >Hard</label
-              >
-
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnradio"
-                id="btnradio3"
-                autocomplete="off"
-              />
-              <label class="btn btn-outline-secondary" for="btnradio3"
-                >Random</label
-              >
-            </div>
           </div>
         </div>
-        <div class="col-8">
-          <input
-            class="btn btn-primary w-100 btn-lg"
-            type="submit"
-            value="GENERATE"
-          />
+
+        <!-- LONG -->
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">{{content_checkboxes | safe}}</div>
         </div>
-      </div>
-      <!-- </div>
+        <!-- </div>
 
     <div class="container"> -->
-      <div class="row mt-5">
-        <div class="input-group input-group-lg">
-          <input
-            type="text"
-            class="form-control"
-            aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-lg"
-          />
-          <button
-            type="button"
-            class="btn bg-transparent"
-            style="margin-left: -47px; z-index: 100"
-          >
-            X
-          </button>
-          <button class="btn btn-outline-secondary" type="button">Clear</button>
-          <button class="btn btn-outline-secondary" type="button">Enter</button>
+        <div class="row mt-4">
+          <div class="col-4">
+            <div class="h-100 test2">
+              <div
+                class="btn-group w-100"
+                role="group"
+                aria-label="Basic radio toggle button group"
+              >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnradio"
+                  id="btnradio1"
+                  autocomplete="off"
+                  value="1"
+                  {{content_checked_easy
+                  |
+                  safe}}
+                />
+                <label class="btn btn-outline-secondary" for="btnradio1"
+                  >Easy</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnradio"
+                  id="btnradio2"
+                  autocomplete="off"
+                  value="2"
+                  {{content_checked_hard
+                  |
+                  safe}}
+                />
+                <label class="btn btn-outline-secondary" for="btnradio2"
+                  >Hard</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnradio"
+                  id="btnradio3"
+                  autocomplete="off"
+                  value="0"
+                  {{content_checked_random
+                  |
+                  safe}}
+                />
+                <label class="btn btn-outline-secondary" for="btnradio3"
+                  >Random</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-8">
+            <input
+              class="btn btn-primary w-100 btn-lg"
+              type="submit"
+              value="GENERATE"
+            />
+          </div>
         </div>
-        <small id="emailHelp" class="form-text text-muted mx-3">Easy</small>
-      </div>
+        <!-- </div>
+
+    <div class="container"> -->
+        <div class="row mt-5">
+          <div class="input-group input-group-lg">
+            <input
+              type="text"
+              class="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-lg"
+              placeholder="Write your sentence or click Generate"
+              value="{{content_sentence | safe}}"
+            />
+            <button
+              type="button"
+              class="btn bg-transparent"
+              style="margin-left: -47px; z-index: 100"
+            >
+              X
+            </button>
+            <button class="btn btn-outline-secondary" type="button">
+              Clear
+            </button>
+            <button class="btn btn-outline-secondary" type="button">
+              Enter
+            </button>
+          </div>
+          <small id="emailHelp" class="form-text text-muted mx-3"
+            >{{content_small | safe}}</small
+          >
+        </div>
+      </form>
     </div>
 
     <div class="container">
-      <div class="row mt-4">
-        <div class="accordion" id="accordionPanelsStayOpenExample">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-              <button
-                class="accordion-button"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#panelsStayOpen-collapseOne"
-                aria-expanded="false"
-                aria-controls="panelsStayOpen-collapseOne"
-              >
-                de
-              </button>
-            </h2>
-            <div
-              id="panelsStayOpen-collapseOne"
-              class="accordion-collapse collapse show"
-              aria-labelledby="panelsStayOpen-headingOne"
-            >
-              <div class="accordion-body">
-                This is the first item's accordion body.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-              <button
-                class="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#panelsStayOpen-collapseTwo"
-                aria-expanded="false"
-                aria-controls="panelsStayOpen-collapseTwo"
-              >
-                es
-              </button>
-            </h2>
-            <div
-              id="panelsStayOpen-collapseTwo"
-              class="accordion-collapse collapse"
-              aria-labelledby="panelsStayOpen-headingTwo"
-            >
-              <div class="accordion-body">
-                Though the transition does limit overflow.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-              <button
-                class="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#panelsStayOpen-collapseThree"
-                aria-expanded="false"
-                aria-controls="panelsStayOpen-collapseThree"
-              >
-                fr
-              </button>
-            </h2>
-            <div
-              id="panelsStayOpen-collapseThree"
-              class="accordion-collapse collapse"
-              aria-labelledby="panelsStayOpen-headingThree"
-            >
-              <div class="accordion-body">It is hidden by default.</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="row mt-4">{{content_accordion | safe}}</div>
     </div>
 
     <!-- Optional JavaScript -->
