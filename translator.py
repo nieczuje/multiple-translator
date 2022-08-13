@@ -273,9 +273,7 @@ def index():
             sen = MultipleTranslator(english_sentence).multiple_translations(languages)
             # translations = Display().translations(sen)
             translations = [translation.text for translation in sen]
-            print(translations)
             pronunciations = [pronunciation.pronunciation if not (pronunciation.pronunciation in translations or pronunciation.pronunciation == english_sentence) else '&nbsp;' for pronunciation in sen]
-            print(pronunciations)
 
             accordion = Display().accordion(languages, translations, pronunciations)
             small = sentence.level

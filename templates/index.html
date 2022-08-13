@@ -37,25 +37,26 @@
   </head>
   <body>
     <div class="container">
-      <form method="post">
-        <div class="row mt-4">
-          <div class="col-10">
-            <!-- SHORT -->
-            {{content_checkboxes_short | safe}}
-          </div>
-          <div class="col-2">
-            <!-- BUTTON -->
-            <a
-              class="btn btn-outline-secondary w-100"
-              data-bs-toggle="collapse"
-              href="#collapseExample"
-              role="button"
-              aria-expanded="false"
-              aria-controls="collapseExample"
-            >
-              More
-            </a>
-            <!-- <button
+      <div class="form_area border">
+        <form method="post">
+          <div class="row mt-4">
+            <div class="col-10">
+              <!-- SHORT -->
+              {{content_checkboxes_short | safe}}
+            </div>
+            <div class="col-2">
+              <!-- BUTTON -->
+              <a
+                class="btn btn-outline-secondary w-100"
+                data-bs-toggle="collapse"
+                href="#collapseExample"
+                role="button"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+              >
+                More
+              </a>
+              <!-- <button
             class="btn btn-primary"
             type="button"
             data-bs-toggle="collapse"
@@ -65,111 +66,112 @@
           >
             Button with data-bs-target
           </button> -->
-          </div>
-        </div>
-
-        <!-- LONG -->
-        <div class="collapse" id="collapseExample">
-          <div class="card card-body">{{content_checkboxes | safe}}</div>
-        </div>
-        <!-- </div>
-
-    <div class="container"> -->
-        <div class="row mt-4">
-          <div class="col-4">
-            <div class="h-100 test2">
-              <div
-                class="btn-group w-100"
-                role="group"
-                aria-label="Basic radio toggle button group"
-              >
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="btnradio"
-                  id="btnradio1"
-                  autocomplete="off"
-                  value="1"
-                  {{content_checked_easy
-                  |
-                  safe}}
-                />
-                <label class="btn btn-outline-secondary" for="btnradio1"
-                  >Easy</label
-                >
-
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="btnradio"
-                  id="btnradio2"
-                  autocomplete="off"
-                  value="2"
-                  {{content_checked_hard
-                  |
-                  safe}}
-                />
-                <label class="btn btn-outline-secondary" for="btnradio2"
-                  >Hard</label
-                >
-
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="btnradio"
-                  id="btnradio3"
-                  autocomplete="off"
-                  value="0"
-                  {{content_checked_random
-                  |
-                  safe}}
-                />
-                <label class="btn btn-outline-secondary" for="btnradio3"
-                  >Random</label
-                >
-              </div>
             </div>
           </div>
-          <div class="col-8">
-            <input
-              class="btn btn-primary w-100 btn-lg"
-              type="submit"
-              value="GENERATE"
-            />
+
+          <!-- LONG -->
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">{{content_checkboxes | safe}}</div>
           </div>
-        </div>
-        <!-- </div>
+          <!-- </div>
 
     <div class="container"> -->
-        <div class="row mt-5">
-          <div class="input-group input-group-lg">
-            <input
-              type="text"
-              class="form-control"
-              aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-lg"
-              placeholder="Write your sentence or click Generate"
-              value="{{content_sentence | safe}}"
-            />
-            <button
-              type="button"
-              class="btn bg-transparent"
-              style="margin-left: -47px; z-index: 100"
-            >
-              X
-            </button>
-            <button class="btn btn-outline-secondary" type="button">
-              Clear
-            </button>
-            <button class="btn btn-outline-secondary" type="button">
-              Enter
-            </button>
+          <div class="row mt-4">
+            <div class="col-4">
+              <div class="h-100 test2">
+                <div
+                  class="btn-group w-100"
+                  role="group"
+                  aria-label="Basic radio toggle button group"
+                >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio"
+                    id="btnradio1"
+                    autocomplete="off"
+                    value="1"
+                    {{content_checked_easy
+                    |
+                    safe}}
+                  />
+                  <label class="btn btn-outline-secondary" for="btnradio1"
+                    >Easy</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio"
+                    id="btnradio2"
+                    autocomplete="off"
+                    value="2"
+                    {{content_checked_hard
+                    |
+                    safe}}
+                  />
+                  <label class="btn btn-outline-secondary" for="btnradio2"
+                    >Hard</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio"
+                    id="btnradio3"
+                    autocomplete="off"
+                    value="0"
+                    {{content_checked_random
+                    |
+                    safe}}
+                  />
+                  <label class="btn btn-outline-secondary" for="btnradio3"
+                    >Random</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-8">
+              <input
+                class="btn btn-primary w-100 btn-lg"
+                type="submit"
+                value="GENERATE"
+              />
+            </div>
           </div>
-          <small id="emailHelp" class="form-text text-muted mx-3"
-            >{{content_small | safe}}</small
-          >
-        </div>
-      </form>
+          <!-- </div>
+
+    <div class="container"> -->
+          <div class="row mt-5">
+            <div class="input-group input-group-lg">
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-lg"
+                placeholder="Write your sentence or click Generate"
+                value="{{content_sentence | safe}}"
+              />
+              <button
+                type="button"
+                class="btn bg-transparent"
+                style="margin-left: -47px; z-index: 100"
+              >
+                X
+              </button>
+              <button class="btn btn-outline-secondary" type="button">
+                Clear
+              </button>
+              <button class="btn btn-outline-secondary" type="button">
+                Enter
+              </button>
+            </div>
+            <small id="emailHelp" class="form-text text-muted mx-3"
+              >{{content_small | safe}}</small
+            >
+          </div>
+        </form>
+      </div>
     </div>
 
     <div class="container">

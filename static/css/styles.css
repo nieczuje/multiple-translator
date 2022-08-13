@@ -16,3 +16,16 @@ ul.short {
   display: flex;
   align-items: center;
 }
+
+.form_area {
+  background: rgb(131, 58, 180);
+  background: linear-gradient(
+    103deg,
+    rgba(177, 179, 154, 0.2) 0%,
+    rgba(255, 209, 207, 0.2) 50%,
+    rgba(145, 163, 179, 0.2) 100%
+  );
+  border-radius: 4px;
+  padding: 0.1rem 1rem 1rem 1rem;
+  margin-top: 1rem;
+}
