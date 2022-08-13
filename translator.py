@@ -147,7 +147,7 @@ class Display():
             num == 9
         return ['zero','one','two','three','four','five','six','seven','eight','nine'][num].capitalize()
     
-    def accordion_item(self, lang, translation, num):
+    def accordion_item(self, lang, translation, num, pronunciation):
         return '''<div class="accordion-item">
             <h2 class="accordion-header" id="panelsStayOpen-heading''' + self.num_to_text(num) + '''">
               <button
@@ -167,15 +167,16 @@ class Display():
               aria-labelledby="panelsStayOpen-heading''' + self.num_to_text(num) + '''"
             >
               <div class="accordion-body">
-                ''' + translation + '''
+                <div>''' + translation + '''</div>
+                <small class="text-muted">''' + pronunciation + '''</small>
               </div>
             </div>
           </div>'''
         
-    def accordion(self, langs, translations):
+    def accordion(self, langs, translations, pronunciations):
         accordion = '<div class="accordion" id="accordionPanelsStayOpenExample">'
         for count, lang in enumerate(langs):
-            accordion += self.accordion_item(lang, translations[count], count + 1)
+            accordion += self.accordion_item(lang, translations[count], count + 1, pronunciations[count])
         accordion += '</div>'
         return accordion
 
@@ -235,7 +236,7 @@ app = Flask(__name__)
 
 languages = []
 inlineRadioOptions = 2
-sentence = Sentence()
+sentence = ""
 english_sentence = ""
 translations = ""
 btnradio = "1"
@@ -264,6 +265,7 @@ def index():
         if len(request.form.getlist('btnradio')) > 0:
             btnradio = request.form.getlist('btnradio')
             btnradio = btnradio[0]
+            sentence = Sentence()
             sentence.source = btnradio
             print(sentence.source)
             # sen = MultipleTranslator("The cat is white").multiple_translations(languages)
@@ -271,7 +273,11 @@ def index():
             sen = MultipleTranslator(english_sentence).multiple_translations(languages)
             # translations = Display().translations(sen)
             translations = [translation.text for translation in sen]
-            accordion = Display().accordion(languages, translations)
+            print(translations)
+            pronunciations = [pronunciation.pronunciation if not (pronunciation.pronunciation in translations or pronunciation.pronunciation == english_sentence) else '&nbsp;' for pronunciation in sen]
+            print(pronunciations)
+
+            accordion = Display().accordion(languages, translations, pronunciations)
             small = sentence.level
             print(small)
 
