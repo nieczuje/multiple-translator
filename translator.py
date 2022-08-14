@@ -264,6 +264,8 @@ def index():
     global checked_random
     global accordion
     global small
+    global checkboxes_short
+    global checkboxes_diff
     if request.method == 'POST':
         if len(request.form.getlist('languages')) > 0:
             languages = request.form.getlist('languages')
@@ -305,6 +307,7 @@ def index():
                 checked_random = "checked"
 
     print(languages, btnradio)
+    print(english_sentence)
     return render_template("index.html", content_form=form, content_sentence=english_sentence, content_translations=translations, content_checkboxes_diff=checkboxes_diff, content_checkboxes_short=checkboxes_short, content_checked_easy=checked_easy, content_checked_hard=checked_hard, content_checked_random=checked_random, content_accordion=accordion, content_small=small)
 
 if __name__ == "__main__":
