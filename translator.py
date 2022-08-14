@@ -11,7 +11,7 @@ from flask import Flask, redirect, url_for, render_template, request
 class Languages():
     def __init__(self):
         self.lang_list = ["af", "ach", "ak", "am", "ar", "az", "be", "bem", "bg", "bh", "bn", "br", "bs", "ca", "chr", "ckb", "co",
-             "crs", "cs", "cy", "da", "de", "ee", "el", "en", "eo", "es", "es-419", "et", "eu", "fa", "fi", "fo", "fr",
+             "cs", "cy", "da", "de", "ee", "el", "en", "eo", "es", "es-419", "et", "eu", "fa", "fi", "fo", "fr",
              "fy", "ga", "gaa", "gd", "gl", "gn", "gu", "ha", "haw", "hi", "hr", "ht", "hu", "hy", "ia", "id", "ig",
              "is", "it", "iw", "ja", "jw", "ka", "kg", "kk", "km", "kn", "ko", "kri", "ku", "ky", "la", "lg", "ln",
              "lo", "loz", "lt", "lua", "lv", "mfe", "mg", "mi", "mk", "ml", "mn", "mo", "mr", "ms", "mt", "ne", "nl",
@@ -19,7 +19,7 @@ class Languages():
              "rn", "ro", "ru", "rw", "sd", "sh", "si", "sk", "sl", "sn", "so", "sq", "sr", "sr-ME", "st", "su", "sv",
              "sw", "ta", "te", "tg", "th", "ti", "tk", "tl", "tn", "to", "tr", "tt", "tum", "tw", "ug", "uk", "ur",
              "uz", "vi", "wo", "xh", "xx-bork", "xx-elmer", "xx-hacker", "xx-klingon", "xx-pirate", "yi", "yo", "zh-CN",
-             "zh-TW", "zu"]
+             "zh-TW", "zu"] # "crs" nie dziala
         self.lang_list_short = ["ar", "de", "es", "fr", "it", "iw", "ja", "ko", "pl", "pt-PT", "ru", "tr", "uk", "zh-CN"]
 
     def lang_diff(self):
@@ -119,20 +119,20 @@ class Display():
         # self.item = item
         self.hmtl = ""
     
-    def checkbox(self, lang):
-        return '<li><div class="form-check"><input class="form-check-input" type="checkbox" name="languages" value="' + lang + '" id="flexCheckDefault_' + lang + '" /><label class="form-check-label" for="flexCheckDefault_' + lang + '">' + lang + '</label></div></li>'
+    def checkbox(self, lang, checked):
+        return '<li><div class="form-check"><input class="form-check-input" type="checkbox" name="languages" value="' + lang + '" id="flexCheckDefault_' + lang + '" ' + checked + '/><label class="form-check-label" for="flexCheckDefault_' + lang + '">' + lang + '</label></div></li>'
     
-    def checkboxes(self, langs, html_class):
+    def checkboxes(self, langs, html_class, checked_list):
         checkboxes = '<ul class="' + html_class + '">'
-        for lang in langs:
-            checkboxes += self.checkbox(lang)
+        for count, lang in enumerate(langs):
+            checkboxes += self.checkbox(lang, checked_list[count])
         checkboxes += '</ul>'
         return checkboxes
     
     def form(self, langs):
         form = '<form method="post"><ul>'
         for lang in langs:
-            form += self.checkbox(lang)
+            form += self.checkbox(lang, "")
         form += '</ul><div class="modal-footer"><input class="btn btn-primary" type="submit" value="Submit"></div></form>'
         return form
     
@@ -227,12 +227,7 @@ def main():
 #         <input type="submit"> \
 #         </form>'
 
-form = Display().form(Languages().lang_list)
-checkboxes = Display().checkboxes(Languages().lang_diff(), "diff")
-checkboxes_short = Display().checkboxes(Languages().lang_list_short, "short")
 
-
-app = Flask(__name__)
 
 languages = []
 inlineRadioOptions = 2
@@ -245,6 +240,16 @@ checked_hard = ""
 checked_random = ""
 accordion = ""
 small = ""
+
+checked_list_short = ["" for lang in Languages().lang_list_short]
+checked_list_diff = ["" for lang in Languages().lang_diff()]
+form = Display().form(Languages().lang_list)
+checkboxes_diff = Display().checkboxes(Languages().lang_diff(), "diff", checked_list_diff)
+checkboxes_short = Display().checkboxes(Languages().lang_list_short, "short", checked_list_short)
+
+
+app = Flask(__name__)
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -279,6 +284,12 @@ def index():
             small = sentence.level
             print(small)
 
+            # langs checked
+            checked_list_short = ["checked" if lang in languages else "" for lang in Languages().lang_list_short]
+            checkboxes_short = Display().checkboxes(Languages().lang_list_short, "short", checked_list_short)
+            checked_list_diff = ["checked" if lang in languages else "" for lang in Languages().lang_diff()]
+            checkboxes_diff = Display().checkboxes(Languages().lang_diff(), "diff", checked_list_diff)
+
             # radio checked
             if btnradio == "1":
                 checked_easy = "checked"
@@ -294,7 +305,7 @@ def index():
                 checked_random = "checked"
 
     print(languages, btnradio)
-    return render_template("index.html", content_form=form, content_sentence=english_sentence, content_translations=translations, content_checkboxes=checkboxes, content_checkboxes_short=checkboxes_short, content_checked_easy=checked_easy, content_checked_hard=checked_hard, content_checked_random=checked_random, content_accordion=accordion, content_small=small)
+    return render_template("index.html", content_form=form, content_sentence=english_sentence, content_translations=translations, content_checkboxes_diff=checkboxes_diff, content_checkboxes_short=checkboxes_short, content_checked_easy=checked_easy, content_checked_hard=checked_hard, content_checked_random=checked_random, content_accordion=accordion, content_small=small)
 
 if __name__ == "__main__":
     app.run(debug=False)
