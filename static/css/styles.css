@@ -34,3 +34,8 @@ ul.short {
 .test {
   background-color: red;
 }
+
+#clear_text {
+  margin-left: -47px;
+  z-index: 100;
+}

@@ -175,17 +175,14 @@
                 aria-describedby="inputGroup-sizing-lg"
                 placeholder="Write your sentence or click Generate"
                 value="{{content_sentence | safe}}"
+                id="input_text"
               />
-              <button
-                type="button"
-                class="btn bg-transparent"
-                style="margin-left: -47px; z-index: 100"
-              >
+              <button type="button" class="btn bg-transparent" id="clear_text">
                 X
               </button>
-              <button class="btn btn-outline-secondary" type="button">
+              <!-- <button class="btn btn-outline-secondary" type="button">
                 Clear
-              </button>
+              </button> -->
               <button class="btn btn-outline-secondary" type="button">
                 Enter
               </button>
@@ -203,10 +200,22 @@
     </div>
 
     <script>
+      // uncheck checkboxes
       $("#unchk").click(function () {
+        console.log("w");
         $('input[type="checkbox"]').each(function () {
           $(this).attr("checked", false);
         });
+      });
+      // // clear input at the beginning
+      // $(document).ready(function () {
+      //   console.log("a");
+      //   $("#input_text").val("");
+      // });
+      // clear input
+      $("#clear_text").click(function () {
+        $("#input_text").val("");
+        console.log("s");
       });
     </script>
 
