@@ -232,7 +232,7 @@ def main():
 languages = []
 inlineRadioOptions = 2
 sentence = ""
-english_sentence = ""
+english_sentence = "aaa"
 translations = ""
 btnradio = "1"
 checked_easy = ""
@@ -240,6 +240,8 @@ checked_hard = ""
 checked_random = ""
 accordion = ""
 small = ""
+input_text = ""
+english_sentence_old = "bbb"
 
 checked_list_short = ["" for lang in Languages().lang_list_short]
 checked_list_diff = ["" for lang in Languages().lang_diff()]
@@ -266,17 +268,29 @@ def index():
     global small
     global checkboxes_short
     global checkboxes_diff
+    global input_text
+    global english_sentence_old
     if request.method == 'POST':
         if len(request.form.getlist('languages')) > 0:
             languages = request.form.getlist('languages')
-        if len(request.form.getlist('btnradio')) > 0:
+        if len(request.form.getlist('btnradio')) > 0 and len(request.form.get('input_text')) > 0:
             btnradio = request.form.getlist('btnradio')
             btnradio = btnradio[0]
+
+            print("input_text", request.form.get('input_text'), english_sentence_old, english_sentence)
+            print("c", english_sentence_old)
+            print("d", request.form.get('input_text'))
+            if english_sentence_old == request.form.get('input_text'):
+                print("wygneerowane", english_sentence_old, english_sentence)
+            else:
+                print("user input sentence!!", request.form.get('input_text'))
+                english_sentence = request.form.get('input_text')
+
             sentence = Sentence()
             sentence.source = btnradio
             print(sentence.source)
             # sen = MultipleTranslator("The cat is white").multiple_translations(languages)
-            english_sentence = sentence.draw()
+            # english_sentence = sentence.draw() AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
             sen = MultipleTranslator(english_sentence).multiple_translations(languages)
             # translations = Display().translations(sen)
             translations = [translation.text for translation in sen]
@@ -305,10 +319,13 @@ def index():
                 checked_easy = ""
                 checked_hard = ""
                 checked_random = "checked"
+            
+            english_sentence_old = english_sentence.rstrip()
+            english_sentence = sentence.draw()
 
     print(languages, btnradio)
     print(english_sentence)
-    return render_template("index.html", content_form=form, content_sentence=english_sentence, content_translations=translations, content_checkboxes_diff=checkboxes_diff, content_checkboxes_short=checkboxes_short, content_checked_easy=checked_easy, content_checked_hard=checked_hard, content_checked_random=checked_random, content_accordion=accordion, content_small=small)
+    return render_template("index.html", content_form=form, content_sentence=english_sentence_old, content_translations=translations, content_checkboxes_diff=checkboxes_diff, content_checkboxes_short=checkboxes_short, content_checked_easy=checked_easy, content_checked_hard=checked_hard, content_checked_random=checked_random, content_accordion=accordion, content_small=small)
 
 if __name__ == "__main__":
     app.run(debug=False)
