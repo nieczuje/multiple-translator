@@ -9,10 +9,11 @@ ul.diff {
 
 ul.short {
   column-count: 7;
+  margin-top: 0.5rem;
   /* column-gap: 0.5rem; */
 }
 
-.test2 {
+.center_vertically {
   display: flex;
   align-items: center;
 }
@@ -28,4 +29,8 @@ ul.short {
   border-radius: 4px;
   padding: 0.1rem 1rem 1rem 1rem;
   margin-top: 1rem;
+}
+
+.test {
+  background-color: red;
 }
