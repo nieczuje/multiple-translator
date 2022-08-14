@@ -277,6 +277,11 @@ def index():
             btnradio = request.form.getlist('btnradio')
             btnradio = btnradio[0]
 
+            print("aaaaall", sentence)
+            if sentence != "":
+                small = sentence.level
+            print(small)
+
             print("input_text", request.form.get('input_text'), english_sentence_old, english_sentence)
             print("c", english_sentence_old)
             print("d", request.form.get('input_text'))
@@ -285,6 +290,7 @@ def index():
             else:
                 print("user input sentence!!", request.form.get('input_text'))
                 english_sentence = request.form.get('input_text')
+                small = "Your sentence"
 
             sentence = Sentence()
             sentence.source = btnradio
@@ -297,8 +303,8 @@ def index():
             pronunciations = [pronunciation.pronunciation if not (pronunciation.pronunciation in translations or pronunciation.pronunciation == english_sentence) else '&nbsp;' for pronunciation in sen]
 
             accordion = Display().accordion(languages, translations, pronunciations)
-            small = sentence.level
-            print(small)
+            # small = sentence.level
+            # print(small)
 
             # langs checked
             checked_list_short = ["checked" if lang in languages else "" for lang in Languages().lang_list_short]
