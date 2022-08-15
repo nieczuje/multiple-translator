@@ -129,16 +129,16 @@ class Display():
 languages = []
 inlineRadioOptions = 2
 sentence = ""
-english_sentence = "aaa"
+english_sentence = "Hello"
 translations = ""
 btnradio = "1"
-checked_easy = ""
+checked_easy = "checked"
 checked_hard = ""
 checked_random = ""
 accordion = ""
-small = ""
+small = "Easy"
 input_text = ""
-english_sentence_old = "bbb"
+english_sentence_old = "Choose the languages"
 
 checked_list_short = ["" for lang in Languages().lang_list_short]
 checked_list_diff = ["" for lang in Languages().lang_diff()]
