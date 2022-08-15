@@ -160,20 +160,11 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    global languages
-    global sentence
-    global translations
-    global english_sentence
-    global btnradio
-    global checked_easy
-    global checked_hard
-    global checked_random
+    global languages, sentence, english_sentence, english_sentence_old, translations
+    global checkboxes_short, checkboxes_diff
+    global btnradio, checked_easy, checked_hard, checked_random
+    global small, input_text
     global accordion
-    global small
-    global checkboxes_short
-    global checkboxes_diff
-    global input_text
-    global english_sentence_old
 
     if request.method == 'POST':
         if len(request.form.getlist('languages')) > 0 and len(request.form.getlist('btnradio')) > 0 and len(request.form.get('input_text')) > 0:
@@ -213,19 +204,15 @@ def index():
                 small = "Your sentence"
 
             # accordion
-            sen = MultipleTranslator(english_sentence).multiple_translations(languages)
-            translations = [translation.text for translation in sen]
-            pronunciations = [pronunciation.pronunciation if not (pronunciation.pronunciation in translations or pronunciation.pronunciation == english_sentence or pronunciation.pronunciation == None) else '&nbsp;' for pronunciation in sen]
+            result = MultipleTranslator(english_sentence).multiple_translations(languages)
+            translations = [translation.text for translation in result]
+            pronunciations = [pronunciation.pronunciation if not (pronunciation.pronunciation in translations or pronunciation.pronunciation == english_sentence or pronunciation.pronunciation == None) else '&nbsp;' for pronunciation in result]
             print(english_sentence, pronunciations) # jakis error z pronunciation
 
             accordion = Display().accordion(languages, translations, pronunciations)
 
-            # # new sentence
-            # sentence = Sentence()
-            # sentence.source = btnradio
-            
+            # old sentence for comparision
             english_sentence_old = english_sentence.rstrip()
-            # english_sentence = sentence.draw()
 
     return render_template("index.html", content_sentence=english_sentence_old, content_checkboxes_diff=checkboxes_diff, content_checkboxes_short=checkboxes_short, content_checked_easy=checked_easy, content_checked_hard=checked_hard, content_checked_random=checked_random, content_accordion=accordion, content_small=small)
 
