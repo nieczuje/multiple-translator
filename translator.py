@@ -22,6 +22,7 @@ class Sentence():
             self.lines = f.readlines()
         self.df = pd.read_csv("GenericsKB-Best.tsv", sep='\t')
         self.level = ""
+        self.source = "1"
     
     def draw(self):
         sentence_easy = random.choice(self.lines)
@@ -126,24 +127,32 @@ class Display():
         return accordion
 
 
+# STARTING VALUES
 languages = []
-sentence = ""
-english_sentence = "Hello"
-translations = ""
+sentence = Sentence()
+# english_sentence = "Hello!"
+english_sentence = sentence.draw()
+english_sentence_old = "Choose the languages!"
+translations = []
+
+# checkboxes unchecked
+checked_list_short = ["" for lang in Languages().lang_list_short]
+checked_list_diff = ["" for lang in Languages().lang_diff()]
+checkboxes_short = Display().checkboxes(Languages().lang_list_short, "short", checked_list_short)
+checkboxes_diff = Display().checkboxes(Languages().lang_diff(), "diff", checked_list_diff)
+
+# radios
 btnradio = "1"
 checked_easy = "checked"
 checked_hard = ""
 checked_random = ""
-accordion = ""
+
+# input area
 small = "Easy"
 input_text = ""
-english_sentence_old = "Choose the languages!"
 
-checked_list_short = ["" for lang in Languages().lang_list_short]
-checked_list_diff = ["" for lang in Languages().lang_diff()]
-
-checkboxes_short = Display().checkboxes(Languages().lang_list_short, "short", checked_list_short)
-checkboxes_diff = Display().checkboxes(Languages().lang_diff(), "diff", checked_list_diff)
+# accordion
+accordion = ""
 
 
 app = Flask(__name__)
@@ -169,26 +178,14 @@ def index():
     if request.method == 'POST':
         if len(request.form.getlist('languages')) > 0 and len(request.form.getlist('btnradio')) > 0 and len(request.form.get('input_text')) > 0:
             languages = request.form.getlist('languages')
-            btnradio = request.form.getlist('btnradio')
-            btnradio = btnradio[0]
+            btnradio = request.form.getlist('btnradio')[0]
 
-            if sentence != "":
-                small = sentence.level
-
-            if english_sentence_old != request.form.get('input_text'):
-                english_sentence = request.form.get('input_text')
-                small = "Your sentence"
-
+            # new sentence
             sentence = Sentence()
             sentence.source = btnradio
+            english_sentence = sentence.draw()
 
-            sen = MultipleTranslator(english_sentence).multiple_translations(languages)
-            translations = [translation.text for translation in sen]
-            pronunciations = [pronunciation.pronunciation if not (pronunciation.pronunciation in translations or pronunciation.pronunciation == english_sentence or pronunciation.pronunciation == None) else '&nbsp;' for pronunciation in sen]
-
-            accordion = Display().accordion(languages, translations, pronunciations)
-
-            # langs checked
+            # languages checked
             checked_list_short = ["checked" if lang in languages else "" for lang in Languages().lang_list_short]
             checkboxes_short = Display().checkboxes(Languages().lang_list_short, "short", checked_list_short)
             checked_list_diff = ["checked" if lang in languages else "" for lang in Languages().lang_diff()]
@@ -207,18 +204,31 @@ def index():
                 checked_easy = ""
                 checked_hard = ""
                 checked_random = "checked"
+
+            # input area
+            small = sentence.level
+            # user's sentence
+            if english_sentence_old != request.form.get('input_text'):
+                english_sentence = request.form.get('input_text')
+                small = "Your sentence"
+
+            # accordion
+            sen = MultipleTranslator(english_sentence).multiple_translations(languages)
+            translations = [translation.text for translation in sen]
+            pronunciations = [pronunciation.pronunciation if not (pronunciation.pronunciation in translations or pronunciation.pronunciation == english_sentence or pronunciation.pronunciation == None) else '&nbsp;' for pronunciation in sen]
+            print(english_sentence, pronunciations) # jakis error z pronunciation
+
+            accordion = Display().accordion(languages, translations, pronunciations)
+
+            # # new sentence
+            # sentence = Sentence()
+            # sentence.source = btnradio
             
             english_sentence_old = english_sentence.rstrip()
-            english_sentence = sentence.draw()
-
-
-    print(english_sentence)
+            # english_sentence = sentence.draw()
 
     return render_template("index.html", content_sentence=english_sentence_old, content_checkboxes_diff=checkboxes_diff, content_checkboxes_short=checkboxes_short, content_checked_easy=checked_easy, content_checked_hard=checked_hard, content_checked_random=checked_random, content_accordion=accordion, content_small=small)
 
+
 if __name__ == "__main__":
     app.run(debug=False)
-
-
-# licnecja https://huggingface.co/datasets/generics_kb?fbclid=IwAR07Hh1JT16IbRJJjg13wvFYVNWMltU462-bvqp-atzxLRLE-3PNy845q8Q
-
