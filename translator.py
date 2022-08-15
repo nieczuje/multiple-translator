@@ -54,7 +54,7 @@ class Sentence():
         if match2:
             sentence = sentence[len(match2[0]):]
 
-        # ascii apostrophe, possible solution https://stackoverflow.com/questions/55737316/python-selenium-text-returns-%C3%A2%E2%82%AC-instead-of-apostrophe
+        # ascii errors
         sentence = sentence.replace(u"â€™", "'")
         sentence = sentence.replace(u"…", "...")
 
@@ -127,7 +127,6 @@ class Display():
 
 
 languages = []
-inlineRadioOptions = 2
 sentence = ""
 english_sentence = "Hello"
 translations = ""
@@ -138,7 +137,7 @@ checked_random = ""
 accordion = ""
 small = "Easy"
 input_text = ""
-english_sentence_old = "Choose the languages"
+english_sentence_old = "Choose the languages!"
 
 checked_list_short = ["" for lang in Languages().lang_list_short]
 checked_list_diff = ["" for lang in Languages().lang_diff()]
@@ -153,7 +152,6 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global languages
-    global inlineRadioOptions
     global sentence
     global translations
     global english_sentence
@@ -167,31 +165,22 @@ def index():
     global checkboxes_diff
     global input_text
     global english_sentence_old
+
     if request.method == 'POST':
-        if len(request.form.getlist('languages')) > 0:
+        if len(request.form.getlist('languages')) > 0 and len(request.form.getlist('btnradio')) > 0 and len(request.form.get('input_text')) > 0:
             languages = request.form.getlist('languages')
-        if len(request.form.getlist('btnradio')) > 0 and len(request.form.get('input_text')) > 0:
             btnradio = request.form.getlist('btnradio')
             btnradio = btnradio[0]
 
-            print("aaaaall", sentence)
             if sentence != "":
                 small = sentence.level
-            print(small)
 
-            print("input_text", request.form.get('input_text'), english_sentence_old, english_sentence)
-            print("c", english_sentence_old)
-            print("d", request.form.get('input_text'))
-            if english_sentence_old == request.form.get('input_text'):
-                print("wygneerowane", english_sentence_old, english_sentence)
-            else:
-                print("user input sentence!!", request.form.get('input_text'))
+            if english_sentence_old != request.form.get('input_text'):
                 english_sentence = request.form.get('input_text')
                 small = "Your sentence"
 
             sentence = Sentence()
             sentence.source = btnradio
-            print(sentence.source)
 
             sen = MultipleTranslator(english_sentence).multiple_translations(languages)
             translations = [translation.text for translation in sen]
@@ -223,9 +212,9 @@ def index():
             english_sentence = sentence.draw()
 
 
-    print(languages, btnradio)
     print(english_sentence)
-    return render_template("index.html", content_sentence=english_sentence_old, content_translations=translations, content_checkboxes_diff=checkboxes_diff, content_checkboxes_short=checkboxes_short, content_checked_easy=checked_easy, content_checked_hard=checked_hard, content_checked_random=checked_random, content_accordion=accordion, content_small=small)
+
+    return render_template("index.html", content_sentence=english_sentence_old, content_checkboxes_diff=checkboxes_diff, content_checkboxes_short=checkboxes_short, content_checked_easy=checked_easy, content_checked_hard=checked_hard, content_checked_random=checked_random, content_accordion=accordion, content_small=small)
 
 if __name__ == "__main__":
     app.run(debug=False)
