@@ -1,3 +1,8 @@
+/* body {
+  height: 100%;
+  min-height: 100%;
+} */
+
 ul {
   list-style: none;
 }
@@ -39,6 +44,15 @@ ul.short {
   margin-left: -47px;
   z-index: 100;
 }
+
+/* footer {
+  clear: both;
+  position: relative;
+  height: 200px;
+  margin-top: -200px;
+  position: fixed;
+  margin-top: -1rem;
+} */
 
 /* // Medium devices (tablets, 768px and up) */
 @media (max-width: 768px) {
