@@ -9,7 +9,7 @@ Simple app helping learning languages.
 
 ---
 
-python, flask, some javascript, bootstrap
+python, googletrans Google Translate Ajax API, flask, some javascript, bootstrap
 
 Software used:
 
