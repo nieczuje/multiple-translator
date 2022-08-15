@@ -45,7 +45,24 @@ ul.short {
   .my_responsive_add {
     margin-top: 1rem;
   }
+
   .my_responsive_sub {
     margin-top: -1rem;
+  }
+
+  ol,
+  ul {
+    padding-left: 0rem;
+  }
+
+  ul.diff {
+    column-count: 5;
+    /* column-gap: 0.1rem; */
+  }
+
+  ul.short {
+    column-count: 5;
+    /* margin-top: 0.5rem; */
+    /* column-gap: 0.5rem; */
   }
 }
