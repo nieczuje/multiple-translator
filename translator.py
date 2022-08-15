@@ -1,6 +1,4 @@
 
-from gettext import translation
-from msilib.schema import Error
 import pandas as pd
 import random
 import re
@@ -17,24 +15,6 @@ class Languages():
     def lang_diff(self):
         return [lang for lang in self.lang_list if not (lang in self.lang_list_short or lang in self.lang_list_error or lang == "en")]
 
-    def __str__(self):
-        for lang in self.lang_list:
-            print(lang, end="   ")
-
-    def choose(self):
-        while True:
-            codes = input("Choose codes separated by \",\":\n")
-            codes = codes.split(",")
-            codes = [code.strip() for code in codes]
-            result =  all(elem in self.lang_list for elem in codes)
-            if result:
-                self.langs = codes
-                break
-            else:
-                print("Try again\n")
-
-        return self.langs
-
 
 class Sentence():
     def __init__(self):
@@ -42,16 +22,6 @@ class Sentence():
             self.lines = f.readlines()
         self.df = pd.read_csv("GenericsKB-Best.tsv", sep='\t')
         self.level = ""
-    
-    def choose_source(self):
-        while True:
-            self.source = input("Write your sentence or choose difficulty:\n0 - random, 1 - easy, 2 - hard\n")
-            if self.source == "0" or self.source == "1" or self.source == "2":
-                break
-            elif len(self.source) > 2:
-                break
-            else:
-                print("Try again\n")
     
     def draw(self):
         sentence_easy = random.choice(self.lines)
@@ -102,18 +72,10 @@ class MultipleTranslator():
     def multiple_translations(self, dest_lang_list):
         return [self.single_translation(lang) for lang in dest_lang_list]
 
-    def __str__(self, dest_lang_list):
-        print("Original sentence: ", self.sentence, "\n")
-        for t in self.multiple_translations(dest_lang_list):
-            print(t.dest)
-            input()
-            print("\nText: ", t.text, "\nPronunciation: ", t.pronunciation, "\n")
-
 
 class Display():
     def __init__(self):
-        # self.item = item
-        self.hmtl = ""
+        pass
     
     def checkbox(self, lang, checked):
         return '<li><div class="form-check"><input class="form-check-input" type="checkbox" name="languages" value="' + lang + '" id="flexCheckDefault_' + lang + '" ' + checked + '/><label class="form-check-label" for="flexCheckDefault_' + lang + '">' + lang + '</label></div></li>'
@@ -124,19 +86,6 @@ class Display():
             checkboxes += self.checkbox(lang, checked_list[count])
         checkboxes += '</ul>'
         return checkboxes
-    
-    def form(self, langs):
-        form = '<form method="post"><ul>'
-        for lang in langs:
-            form += self.checkbox(lang, "")
-        form += '</ul><div class="modal-footer"><input class="btn btn-primary" type="submit" value="Submit"></div></form>'
-        return form
-    
-    def translations(self, sentences):
-        translations = ""
-        for s in sentences:
-            translations += s.text
-        return translations
     
     def digit_to_text(self, digit):
         return ['zero','one','two','three','four','five','six','seven','eight','nine'][digit].capitalize()
@@ -177,54 +126,6 @@ class Display():
         return accordion
 
 
-# print(Display().checkbox("de"))
-# print(Display().form(Languages().lang_list))
-# print(Display().accordion_item("de", "Berlin"))
-# print(Display().accordion(["de", "it"], ["deeee", "itttt"]))
-# print(Display().num_to_text(1))
-# input()
-
-
-def main():
-    Languages().__str__()
-    print("\n")
-    langs = Languages().choose()
-    print("\n")
-    sentence = Sentence()
-    sentence.choose_source()
-    print("\n")
-    
-    while True:
-        MultipleTranslator(sentence.draw()).__str__(langs)
-
-        print("---")
-        if len(sentence.source) == 1:
-            sentence_user = input()
-            if len(sentence_user) > 2:
-                sentence.source = sentence_user
-        else:
-            sentence.choose_source()
-
-
-# main()
-
-# form = '<form method="post"> \
-#         <input type="checkbox" name="hello" value="world" checked> \
-#         <input type="checkbox" name="hello" value="davidism" checked> \
-#         <div class="form-check"> \
-#         <input \
-#           class="form-check-input" \
-#           type="checkbox" \
-#           value="" \
-#           id="flexCheckDefault" \
-#         /> \
-#         <label class="form-check-label" for="flexCheckDefault"> de </label> \
-#       </div> \
-#         <input type="submit"> \
-#         </form>'
-
-
-
 languages = []
 inlineRadioOptions = 2
 sentence = ""
@@ -241,9 +142,9 @@ english_sentence_old = "bbb"
 
 checked_list_short = ["" for lang in Languages().lang_list_short]
 checked_list_diff = ["" for lang in Languages().lang_diff()]
-form = Display().form(Languages().lang_list)
-checkboxes_diff = Display().checkboxes(Languages().lang_diff(), "diff", checked_list_diff)
+
 checkboxes_short = Display().checkboxes(Languages().lang_list_short, "short", checked_list_short)
+checkboxes_diff = Display().checkboxes(Languages().lang_diff(), "diff", checked_list_diff)
 
 
 app = Flask(__name__)
@@ -291,16 +192,12 @@ def index():
             sentence = Sentence()
             sentence.source = btnradio
             print(sentence.source)
-            # sen = MultipleTranslator("The cat is white").multiple_translations(languages)
-            # english_sentence = sentence.draw() AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
             sen = MultipleTranslator(english_sentence).multiple_translations(languages)
-            # translations = Display().translations(sen)
             translations = [translation.text for translation in sen]
             pronunciations = [pronunciation.pronunciation if not (pronunciation.pronunciation in translations or pronunciation.pronunciation == english_sentence or pronunciation.pronunciation == None) else '&nbsp;' for pronunciation in sen]
 
             accordion = Display().accordion(languages, translations, pronunciations)
-            # small = sentence.level
-            # print(small)
 
             # langs checked
             checked_list_short = ["checked" if lang in languages else "" for lang in Languages().lang_list_short]
@@ -328,7 +225,7 @@ def index():
 
     print(languages, btnradio)
     print(english_sentence)
-    return render_template("index.html", content_form=form, content_sentence=english_sentence_old, content_translations=translations, content_checkboxes_diff=checkboxes_diff, content_checkboxes_short=checkboxes_short, content_checked_easy=checked_easy, content_checked_hard=checked_hard, content_checked_random=checked_random, content_accordion=accordion, content_small=small)
+    return render_template("index.html", content_sentence=english_sentence_old, content_translations=translations, content_checkboxes_diff=checkboxes_diff, content_checkboxes_short=checkboxes_short, content_checked_easy=checked_easy, content_checked_hard=checked_hard, content_checked_random=checked_random, content_accordion=accordion, content_small=small)
 
 if __name__ == "__main__":
     app.run(debug=False)
