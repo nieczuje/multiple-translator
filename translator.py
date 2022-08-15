@@ -54,7 +54,6 @@ class Sentence():
         match2 = re.findall(r"([a-zA-Z]+[:]\s)", sentence)
         if match2:
             sentence = sentence[len(match2[0]):]
-
         # ascii errors
         sentence = sentence.replace(u"â€™", "'")
         sentence = sentence.replace(u"…", "...")
@@ -83,9 +82,11 @@ class Display():
     
     def checkboxes(self, langs, html_class, checked_list):
         checkboxes = '<ul class="' + html_class + '">'
+
         for count, lang in enumerate(langs):
             checkboxes += self.checkbox(lang, checked_list[count])
         checkboxes += '</ul>'
+
         return checkboxes
     
     def digit_to_text(self, digit):
@@ -119,11 +120,13 @@ class Display():
         
     def accordion(self, langs, translations, pronunciations):
         accordion = '<div class="accordion" id="accordionPanelsStayOpenExample">'
+
         for count, lang in enumerate(langs):
             if count == 9:
                 break
             accordion += self.accordion_item(lang, translations[count], count + 1, pronunciations[count])
         accordion += '</div>'
+
         return accordion
 
 
@@ -207,7 +210,7 @@ def index():
             result = MultipleTranslator(english_sentence).multiple_translations(languages)
             translations = [translation.text for translation in result]
             pronunciations = [pronunciation.pronunciation if not (pronunciation.pronunciation in translations or pronunciation.pronunciation == english_sentence or pronunciation.pronunciation == None) else '&nbsp;' for pronunciation in result]
-            print(english_sentence, pronunciations) # jakis error z pronunciation
+            print(english_sentence, pronunciations) # jakis error z pronunciation bardzo rzadko
 
             accordion = Display().accordion(languages, translations, pronunciations)
 
