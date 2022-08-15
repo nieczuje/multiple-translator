@@ -12,10 +12,10 @@ class Languages():
     def __init__(self):
         self.lang_list = ["af", "ach", "ak", "am", "ar", "az", "be", "bem", "bg", "bh", "bn", "br", "bs", "ca", "chr", "ckb", "co", "crs", "cs", "cy", "da", "de", "ee", "el", "en", "eo", "es", "es-419", "et", "eu", "fa", "fi", "fo", "fr", "fy", "ga", "gaa", "gd", "gl", "gn", "gu", "ha", "haw", "hi", "hr", "ht", "hu", "hy", "ia", "id", "ig", "is", "it", "iw", "ja", "jw", "ka", "kg", "kk", "km", "kn", "ko", "kri", "ku", "ky", "la", "lg", "ln", "lo", "loz", "lt", "lua", "lv", "mfe", "mg", "mi", "mk", "ml", "mn", "mo", "mr", "ms", "mt", "ne", "nl", "nn", "no", "nso", "ny", "nyn", "oc", "om", "or", "pa", "pcm", "pl", "ps", "pt", "pt-BR", "pt-PT", "qu", "rm", "rn", "ro", "ru", "rw", "sd", "sh", "si", "sk", "sl", "sn", "so", "sq", "sr", "sr-ME", "st", "su", "sv", "sw", "ta", "te", "tg", "th", "ti", "tk", "tl", "tn", "to", "tr", "tt", "tum", "tw", "ug", "uk", "ur", "uz", "vi", "wo", "xh", "xx-bork", "xx-elmer", "xx-hacker", "xx-klingon", "xx-pirate", "yi", "yo", "zh-CN", "zh-TW", "zu"]
         self.lang_list_short = ["ar", "de", "es", "fr", "it", "iw", "ja", "ko", "pl", "pt", "ru", "tr", "uk", "zh-CN"]
-        self.lang_error = ["pt-PT", "ach", "ak", "bem", "bh", "br", "chr", "ckb", "es-419", "fo", "gaa", "gn", "ia", "kg", "kri", "lg", "ln", "loz", "lua", "mfe", "mo", "nn", "nso", "nyn", "oc", "om", "pcm", "pt-BR", "qu", "rm", "rn", "rw", "sh", "sr-ME", "ti", "tk", "tl", "tn", "to", "tt", "tum", "tw", "ug", "ur", "uz", "vi", "wo", "xh", "xx-bork", "xx-elmer", "xx-hacker", "xx-klingon", "xx-pirate"]
+        self.lang_list_error = ["pt-PT", "ach", "ak", "bem", "bh", "br", "chr", "ckb", "es-419", "fo", "gaa", "gn", "ia", "kg", "kri", "lg", "ln", "loz", "lua", "mfe", "mo", "nn", "nso", "nyn", "oc", "om", "pcm", "pt-BR", "qu", "rm", "rn", "rw", "sh", "sr-ME", "ti", "tk", "tl", "tn", "to", "tt", "tum", "tw", "ug", "ur", "uz", "vi", "wo", "xh", "xx-bork", "xx-elmer", "xx-hacker", "xx-klingon", "xx-pirate"]
 
     def lang_diff(self):
-        return [lang for lang in self.lang_list if not (lang in self.lang_list_short or lang in self.lang_error or lang == "en")]
+        return [lang for lang in self.lang_list if not (lang in self.lang_list_short or lang in self.lang_list_error or lang == "en")]
 
     def __str__(self):
         for lang in self.lang_list:
@@ -86,6 +86,7 @@ class Sentence():
 
         # ascii apostrophe, possible solution https://stackoverflow.com/questions/55737316/python-selenium-text-returns-%C3%A2%E2%82%AC-instead-of-apostrophe
         sentence = sentence.replace(u"â€™", "'")
+        sentence = sentence.replace(u"…", "...")
 
         return sentence
 
@@ -295,7 +296,7 @@ def index():
             sen = MultipleTranslator(english_sentence).multiple_translations(languages)
             # translations = Display().translations(sen)
             translations = [translation.text for translation in sen]
-            pronunciations = [pronunciation.pronunciation if not (pronunciation.pronunciation in translations or pronunciation.pronunciation == english_sentence) else '&nbsp;' for pronunciation in sen]
+            pronunciations = [pronunciation.pronunciation if not (pronunciation.pronunciation in translations or pronunciation.pronunciation == english_sentence or pronunciation.pronunciation == None) else '&nbsp;' for pronunciation in sen]
 
             accordion = Display().accordion(languages, translations, pronunciations)
             # small = sentence.level
