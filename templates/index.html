@@ -8,13 +8,6 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <!-- Bootstrap CSS -->
-    <!-- <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    /> -->
     <!-- Bootstrap CSS v5.0 -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -35,37 +28,18 @@
 
     <title>Multiple translator</title>
   </head>
+
   <body>
     <div class="container">
       <div class="form_area border">
         <form method="post">
           <div class="row mt-4">
+            <!-- CHECKBOXES SHORT -->
             <div class="col-md-10 col-sm-8">
-              <!-- SHORT -->
               {{content_checkboxes_short | safe}}
             </div>
             <div class="col-md-2 col-sm-4">
-              <!-- BUTTON -->
-              <!-- <a
-                class="btn btn-outline-secondary w-100"
-                data-bs-toggle="collapse"
-                href="#collapseExample"
-                role="button"
-                aria-expanded="false"
-                aria-controls="collapseExample"
-              >
-                More
-              </a> -->
-              <!-- <button
-            class="btn btn-primary"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseExample"
-            aria-expanded="false"
-            aria-controls="collapseExample"
-          >
-            Button with data-bs-target
-          </button> -->
+              <!-- BUTTONS -->
               <div
                 class="btn-group-vertical w-100"
                 role="group"
@@ -93,14 +67,13 @@
             </div>
           </div>
 
-          <!-- LONG -->
+          <!-- CHECKBOXES LONG -->
           <div class="collapse" id="collapseExample">
             <div class="card card-body">{{content_checkboxes_diff | safe}}</div>
           </div>
-          <!-- </div>
 
-    <div class="container"> -->
           <div class="row mt-4">
+            <!-- RADIOS -->
             <div class="col-md-4 col-sm-12 my_responsive_sub">
               <div class="h-100 center_vertically">
                 <div
@@ -155,6 +128,7 @@
                 </div>
               </div>
             </div>
+            <!-- GO -->
             <div class="col-md-8 col-sm-12 my_responsive_add">
               <input
                 class="btn btn-primary w-100 btn-lg"
@@ -163,10 +137,9 @@
               />
             </div>
           </div>
-          <!-- </div>
 
-    <div class="container"> -->
           <div class="row mt-5 mb-1">
+            <!-- TEXT INPUT -->
             <div class="input-group input-group-lg my_responsive_sub">
               <input
                 type="text"
@@ -181,13 +154,8 @@
               <button type="button" class="btn bg-transparent" id="clear_text">
                 <span class="text-muted">X</span>
               </button>
-              <!-- <button class="btn btn-outline-secondary" type="button">
-                Clear
-              </button> -->
-              <!-- <button class="btn btn-outline-secondary" type="submit">
-                Enter
-              </button> -->
             </div>
+            <!-- LEVEL -->
             <small id="emailHelp" class="form-text text-muted mx-3"
               >{{content_small | safe}}</small
             >
@@ -197,53 +165,22 @@
     </div>
 
     <div class="container">
+      <!-- ACCORDION -->
       <div class="row mt-4">{{content_accordion | safe}}</div>
     </div>
-
-    <!-- <footer id="sticky-footer" class="flex-shrink-0 py-4">
-      <div class="container text-center">
-        <small>Copyright &copy; Your Website</small>
-      </div>
-    </footer> -->
 
     <script>
       // uncheck checkboxes
       $("#unchk").click(function () {
-        console.log("w");
         $('input[type="checkbox"]').each(function () {
           $(this).attr("checked", false);
         });
       });
-      // // clear input at the beginning
-      // $(document).ready(function () {
-      //   console.log("a");
-      //   $("#input_text").val("");
-      // });
       // clear input
       $("#clear_text").click(function () {
         $("#input_text").val("");
-        console.log("s");
       });
     </script>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script> -->
-    <!-- <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script> -->
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
 
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"

@@ -1,21 +1,14 @@
-/* body {
-  height: 100%;
-  min-height: 100%;
-} */
-
 ul {
   list-style: none;
 }
 
 ul.diff {
   column-count: 8;
-  /* column-gap: 0.1rem; */
 }
 
 ul.short {
   column-count: 7;
   margin-top: 0.5rem;
-  /* column-gap: 0.5rem; */
 }
 
 .center_vertically {
@@ -45,15 +38,6 @@ ul.short {
   z-index: 100;
 }
 
-/* footer {
-  clear: both;
-  position: relative;
-  height: 200px;
-  margin-top: -200px;
-  position: fixed;
-  margin-top: -1rem;
-} */
-
 /* // Medium devices (tablets, 768px and up) */
 @media (max-width: 768px) {
   .my_responsive_add {
@@ -71,12 +55,9 @@ ul.short {
 
   ul.diff {
     column-count: 5;
-    /* column-gap: 0.1rem; */
   }
 
   ul.short {
     column-count: 5;
-    /* margin-top: 0.5rem; */
-    /* column-gap: 0.5rem; */
   }
 }
