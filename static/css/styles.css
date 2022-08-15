@@ -39,3 +39,13 @@ ul.short {
   margin-left: -47px;
   z-index: 100;
 }
+
+/* // Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  .my_responsive_add {
+    margin-top: 1rem;
+  }
+  .my_responsive_sub {
+    margin-top: -1rem;
+  }
+}
