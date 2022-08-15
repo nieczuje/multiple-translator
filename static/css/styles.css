@@ -3,7 +3,7 @@ ul {
 }
 
 ul.diff {
-  column-count: 9;
+  column-count: 8;
   /* column-gap: 0.1rem; */
 }
 
