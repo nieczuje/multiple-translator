@@ -210,7 +210,7 @@ def index():
             result = MultipleTranslator(english_sentence).multiple_translations(languages)
             translations = [translation.text for translation in result]
             pronunciations = [pronunciation.pronunciation if not (pronunciation.pronunciation in translations or pronunciation.pronunciation == english_sentence or pronunciation.pronunciation == None) else '&nbsp;' for pronunciation in result]
-            print(english_sentence, pronunciations) # jakis error z pronunciation bardzo rzadko
+            # print(english_sentence, pronunciations) # check jakis error z pronunciation bardzo rzadko
 
             accordion = Display().accordion(languages, translations, pronunciations)
 
