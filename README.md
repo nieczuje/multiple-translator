@@ -1,6 +1,8 @@
 # multiple-translator
  
 ![Handwritten](https://img.shields.io/badge/provenance-handwritten-brightgreen)
+
+*2022: original git history*
  
 A simple app for learning languages by translating the same sentence into multiple languages at once.
  
