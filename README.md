@@ -20,8 +20,8 @@ Fully responsive — works the same on desktop and mobile.
  
 | Start | More languages | Generated, folded | Unfolded | Next sentence |
 |---|---|---|---|---|
-| [<img src="screenshots/11mobile_start.png" width="170">](screenshots/11mobile_start.png) | [<img src="screenshots/12mobile_more_languages.png" width="170">](screenshots/12mobile_more_languages.png) | [<img src="screenshots/13mobile_easy_generated.png" width="170">](screenshots/13mobile_easy_generated.png) | [<img src="screenshots/14mobile_easy_generated_unfold.png" width="170">](screenshots/14mobile_easy_generated_unfold.png) | [<img src="screenshots/15mobile_your_sentence.png" width="170">](screenshots/15mobile_your_sentence.png) |
- 
+| [<img src="screenshots/mobile/start.png" width="170">](screenshots/mobile/start.png) | [<img src="screenshots/mobile/more-languages.png" width="170">](screenshots/mobile/more-languages.png) | [<img src="screenshots/mobile/generated-folded.png" width="170">](screenshots/mobile/generated-folded.png) | [<img src="screenshots/mobile/generated-unfolded.png" width="170">](screenshots/mobile/generated-unfolded.png) | [<img src="screenshots/mobile/your-sentence.png" width="170">](screenshots/mobile/your-sentence.png) |
+
 ## Tech
  
 Python, Flask, some JavaScript, Bootstrap. Translations via the googletrans Google Translate Ajax API.
