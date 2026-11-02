@@ -67,8 +67,9 @@ Python, Flask, some JavaScript, Bootstrap. Translations via the googletrans Goog
 
 ## Credits
 
-- Sentence data: [GenericsKB](https://huggingface.co/datasets/community-datasets/generics_kb), Allen Institute for AI — CC BY 4.0. The original page `https://huggingface.co/datasets/generics_kb` no longer works; this is its new address. It covers several subsets, and this project uses GenericsKB-Best. Citation: Bhakthavatsalam, S., Anastasiades, C., & Clark, P. (2020). *GenericsKB: A Knowledge Base of Generic Statements*.
+- Sentence data: [GenericsKB](https://huggingface.co/datasets/community-datasets/generics_kb), Allen Institute for AI — [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The original page `https://huggingface.co/datasets/generics_kb` no longer works; this is its new address. It covers several subsets, and this project uses GenericsKB-Best. Citation: Bhakthavatsalam, S., Anastasiades, C., & Clark, P. (2020). *GenericsKB: A Knowledge Base of Generic Statements*.
 - Example sentences also drawn from [englishstudyhere.com](https://englishstudyhere.com/sentences/1000-sentences-examples-in-english/), [7esl.com](https://7esl.com/english-verbs/), [englishspeak.com](http://www.englishspeak.com/) (the original page `https://www.englishspeak.com/en/english-phrases?category_key=20` no longer works, so this links to the home page), and [onlymyenglish.com](https://onlymyenglish.com/1000-english-sentences-used-in-daily-life/).
+- Libraries loaded from a CDN: [Bootstrap](https://getbootstrap.com/), [jQuery](https://jquery.com/) and [Popper](https://popper.js.org/), all MIT License.
 
 ## License
 
