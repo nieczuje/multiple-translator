@@ -36,8 +36,6 @@ static/              Stylesheet (css/styles.css)
 sentences_base.txt   Easy sentences from the sites listed in Credits
 GenericsKB-Best.tsv  Hard sentences from GenericsKB, about 90 MB
 screenshots/         Screenshots (desktop/, mobile/)
-.vscode/             Editor setting: autopep8 formatter
-.gitattributes       Git line-ending setting
 ```
 
 ## Install
