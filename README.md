@@ -26,6 +26,10 @@ Fully responsive — works the same on desktop and mobile.
 |---|---|---|---|---|
 | [<img src="screenshots/mobile/start.png" width="170">](screenshots/mobile/start.png) | [<img src="screenshots/mobile/more-languages.png" width="170">](screenshots/mobile/more-languages.png) | [<img src="screenshots/mobile/generated-folded.png" width="170">](screenshots/mobile/generated-folded.png) | [<img src="screenshots/mobile/generated-unfolded.png" width="170">](screenshots/mobile/generated-unfolded.png) | [<img src="screenshots/mobile/your-sentence.png" width="170">](screenshots/mobile/your-sentence.png) |
 
+## Tech
+
+Python 3.6, Flask, some JavaScript (jQuery), Bootstrap. Translations via the googletrans Google Translate Ajax API.
+
 ## Structure
 
 ```
@@ -40,13 +44,12 @@ screenshots/         Screenshots (desktop/, mobile/)
 
 ## Install
 
-Requires Python 3.6.
-
 ```bash
 git clone https://github.com/nieczuje/multiple-translator.git
 cd multiple-translator
 python -m venv venv
-venv\Scripts\activate          # Windows
+venv\Scripts\activate          # Windows (Command Prompt)
+venv\Scripts\Activate.ps1      # Windows (PowerShell)
 source venv/bin/activate       # macOS / Linux
 pip install -r requirements.txt
 ```
@@ -58,10 +61,6 @@ python translator.py
 ```
 
 Then open `http://127.0.0.1:5000` in a browser. Run it from the repo folder, because `sentences_base.txt` and `GenericsKB-Best.tsv` are read by relative path.
-
-## Tech
-
-Python, Flask, some JavaScript, Bootstrap. Translations via the googletrans Google Translate Ajax API.
 
 ## Credits
 
